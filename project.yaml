@@ -1,0 +1,10 @@
+workshop: 
+configEdits: 
+textEdits: 
+assetBundles: 
+libraryDLLs:
+  files:
+  - enabled: true
+    relative: true
+    path: source/obj/Debug/EnhancedSalvageOfDestroyedParts.dll
+extraFiles: 

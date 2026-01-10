@@ -1,7 +1,7 @@
 priority: 0
-colorHue: 0.45
+colorHue: 0.753
 id: EnhancedSalvageOfDestroyedParts
-ver: 0.3
+ver: 0.1
 url: 
 includesConfigOverrides: false
 includesConfigEdits: false

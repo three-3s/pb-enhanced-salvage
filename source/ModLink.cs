@@ -34,7 +34,7 @@ namespace ModExtensions
     //  leftover 'hello world' stuff at this point.)
     public class ModLinkCustom : ModLink
     {
-#if true //3todo.deactivate
+#if false
         public static ModLinkCustom ins;
 
         public override void OnLoadStart()
