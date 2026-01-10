@@ -1,0 +1,83 @@
+EquipmentUtility.cs:
+
+// Install a hook for DifficultyUtility.GetFlag("combat_salvage_allows_destroyed")
+
+[...]
+
+	private static void PreparePartForSalvage(PersistentEntity unitPersistent, EquipmentEntity part, bool unitEscapes)
+	{
+		if (part != null)
+		{
+			string s = part.nameInternal.s;
+		}
+		if (part == null || !part.isPart)
+		{
+			Debug.LogWarning("Part entity " + part.ToLog() + " is null (or not tagged) or inventory is null (or not tagged), skipping looting");
+			return;
+		}
+		part.isSalvageable = false;
+		HashSet<EquipmentEntity> subsystemsInPart = EquipmentUtility.GetSubsystemsInPart(part);
+		foreach (EquipmentEntity equipmentEntity in subsystemsInPart)
+		{
+			if (equipmentEntity.hasDataLinkSubsystem)
+			{
+				DataContainerSubsystem data = equipmentEntity.dataLinkSubsystem.data;
+				if (data != null && data.IsFlagPresent("salvage_exempt"))
+				{
+					Debug.LogWarning("Part entity " + part.ToLog() + " contains subsystem blocking salvage: " + equipmentEntity.ToLog());
+					return;
+				}
+			}
+		}
+		if (part.hasDataLinkPartPreset)
+		{
+			DataContainerPartPreset data2 = part.dataLinkPartPreset.data;
+			if (data2 != null && data2.hidden)
+			{
+				Debug.LogWarning("Part entity " + part.ToLog() + " comes from a hidden preset, blocking salvage: " + data2.key);
+				return;
+			}
+		}
+		if (unitPersistent.isUnitSalvageExempted)
+		{
+			return;
+		}
+		if (!part.isWrecked && unitEscapes)
+		{
+			return;
+		}
+		bool flag = OverworldUtility.AreFeaturesChecked();
+		if (part.isWrecked && !flag && !DifficultyUtility.GetFlag("combat_salvage_allows_destroyed"))
+		{
+			return;
+		}
+		bool flag2 = CombatUIUtility.IsUnitFriendly(unitPersistent);
+		if (!flag && !flag2)
+		{
+			float num = Mathf.Clamp01(DifficultyUtility.GetMultiplier("combat_salvage_drop_chance"));
+			float num2 = 1f - num;
+			float num3 = global::UnityEngine.Random.Range(0f, 1f);
+			if (num2 > 0f && num3 <= num2)
+			{
+				return;
+			}
+		}
+		if (part.IsPartTaggedAs("type_looted_whole") && !part.IsPartTaggedAs("type_incompatible"))
+		{
+			part.isSalvageable = true;
+		}
+		if (!part.isSalvageable)
+		{
+			foreach (EquipmentEntity equipmentEntity2 in subsystemsInPart)
+			{
+				if (!equipmentEntity2.isFused)
+				{
+					DataContainerSubsystem data3 = equipmentEntity2.dataLinkSubsystem.data;
+					if (data3 != null && data3.tagsProcessed != null && !data3.tagsProcessed.Contains("type_incompatible") && DataMultiLinker<DataContainerSubsystemHardpoint>.GetEntry(equipmentEntity2.subsystemParentPart.hardpoint, true).editable)
+					{
+						equipmentEntity2.isSalvageable = true;
+					}
+				}
+			}
+		}
+	}

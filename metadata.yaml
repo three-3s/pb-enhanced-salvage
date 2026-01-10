@@ -1,0 +1,21 @@
+priority: 0
+colorHue: 0.45
+id: EnhancedSalvageOfDestroyedParts
+ver: 0.3
+url: 
+includesConfigOverrides: false
+includesConfigEdits: false
+includesConfigTrees: false
+includesLibraries: true
+includesTextures: false
+includesLocalizationEdits: false
+includesLocalizations: false
+includesAssetBundles: false
+gameVersion2Compatible: true
+gameVersionMin: 1.0
+gameVersionMax: 
+name: Enhanced Salvage Of Destroyed Parts
+desc: >-
+  This mod lets you choose a probability that you can salvage a given piece of destroyed equipment.
+
+  How to change the probability? TODO: CURRENTLY IT'S JUST HARDCODED TO 50%.
