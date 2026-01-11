@@ -56,6 +56,8 @@ namespace ModExtensions
     //+================================================================================================+
     public class Patches
     {
+        static readonly float success_probablity = 0.5f; //3todo.impl
+
         //-------------------------------------------------------------------------------------------
         // "Dear Harmony, please call into this GiveSalvageChanceForDestroyedPart class whenever DifficultyUtility.GetFlag() runs"
         [HarmonyPatch(typeof(DifficultyUtility), MethodType.Normal), HarmonyPatch("GetFlag")]
@@ -67,8 +69,9 @@ namespace ModExtensions
             {
                 if(key == "combat_salvage_allows_destroyed")
                 {
-                    __result = true; //3todo.impl
-                    Debug.Log($"GiveSalvageChanceForDestroyedPart: allow salvage = {__result}"); //3todo.rem
+                    float roll = UnityEngine.Random.Range(0f, 1f);
+                    __result = (roll < success_probablity);
+                    Debug.Log($"GiveSalvageChanceForDestroyedPart: roll={roll}; allow salvage = {__result}"); //3todo.rem
                     return false; // "no need to call the original function; just use my __result"
                 }
                 return true; // "I don't care about this case; go ahead and run the original function"
