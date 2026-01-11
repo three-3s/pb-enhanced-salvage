@@ -56,6 +56,23 @@ namespace ModExtensions
     //+================================================================================================+
     public class Patches
     {
-        //3todo.update
+        //-------------------------------------------------------------------------------------------
+        // "Dear Harmony, please call into this GiveSalvageChanceForDestroyedPart class whenever DifficultyUtility.GetFlag() runs"
+        [HarmonyPatch(typeof(DifficultyUtility), MethodType.Normal), HarmonyPatch("GetFlag")]
+        public class GiveSalvageChanceForDestroyedPart
+        {
+            // "Dear Harmony, please call this RollForSalvage() function BEFORE that DifficultyUtility.GetFlag() runs
+            // (and depending on what I say, either call the normal GetFlag() or use the result I give instead)"
+            public static bool Prefix(string key, ref bool __result)
+            {
+                if(key == "combat_salvage_allows_destroyed")
+                {
+                    __result = true; //3todo.impl
+                    Debug.Log($"GiveSalvageChanceForDestroyedPart: allow salvage = {__result}"); //3todo.rem
+                    return false; // "no need to call the original function; just use my __result"
+                }
+                return true; // "I don't care about this case; go ahead and run the original function"
+            }//func
+        }//class GiveSalvageChanceForDestroyedPart
     }//class Patches
 }//namespace
