@@ -8,7 +8,7 @@ Phantom Brigade v2.0 has a yes/no difficulty option: Either you can salvage all 
 
 This mod makes each destroyed part salvageable with 50% probability. There's also a config file where you can adjust that probability.
 
-Steam Workshop page: https:// TODO
+Steam Workshop page: https://steamcommunity.com/sharedfiles/filedetails/?id=3644141439
 
 
 
