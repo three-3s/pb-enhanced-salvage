@@ -1,4 +1,15 @@
-workshop: 
+workshop:
+  publishedID: 3644141439
+  visibility: Private
+  textFromMetadataVersion: true
+  textFromMetadataMain: true
+  title: 
+  description: 
+  internalData: 
+  changes: 'v0.3: Initial release: Configurable salvage chance for destroyed parts.'
+  tags:
+  - Balance
+  texPreviewUpload: true
 configEdits: 
 textEdits: 
 assetBundles: 

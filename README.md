@@ -6,7 +6,7 @@
 
 Phantom Brigade v2.0 has a yes/no difficulty option: Either you can salvage all destroyed components, or you can salvage none of them.
 
-This mod makes each destroyed part salvagable with 50% probability. There's also a config file where you can adjust that probability.
+This mod makes each destroyed part salvageable with 50% probability. There's also a config file where you can adjust that probability.
 
 Steam Workshop page: https:// TODO
 
@@ -24,11 +24,11 @@ AppData\LocalLow\Brace Yourself Games\Phantom Brigade
 Launch the game and it will create file: enhanced_salvage_of_destroyed_parts_config.json
 
 Below is an example content for this file (the {} curly-braces and everything inside them).
-A value of 0.75 represents 75% for a part to be salvagable after it is destroyed.
+A value of 0.75 represents 75% for a part to be salvageable after it is destroyed.
 You can edit this file to change this value to anything between 0.00 to 1.00.
 
 {
-    "salvagable_destroyed_part_success_chance": 0.75
+    "salvageable_destroyed_part_success_chance": 0.75
 }
 
 

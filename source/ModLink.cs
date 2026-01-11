@@ -65,7 +65,7 @@ namespace ModExtensions
     [Serializable]
     public class MyModConfig
     {
-        public float salvagable_destroyed_part_success_chance = 0.5f; // (default; 0..1)
+        public float salvageable_destroyed_part_success_chance = 0.5f; // (default; 0..1)
     }//class
 
     public class MyModConfigManager {
@@ -92,7 +92,7 @@ namespace ModExtensions
             {
                 Debug.Log($"[EnhancedSalvageOfDestroyedParts] Failed to create/load config: {e}");
             }
-            Debug.Log($"[EnhancedSalvageOfDestroyedParts] loaded salvagable_destroyed_part_success_chance={Config.salvagable_destroyed_part_success_chance}");
+            Debug.Log($"[EnhancedSalvageOfDestroyedParts] loaded salvageable_destroyed_part_success_chance={Config.salvageable_destroyed_part_success_chance}");
         }
         private static void CreateDefault()
         {
@@ -115,7 +115,7 @@ namespace ModExtensions
         // The game's PreparePartForSalvage() function has a bunch of special considerations and looks
         // like it's subject to significant change. So for simplicity and to reduce chance of this mod
         // breaking something terribly for a future Phantom Brigade version, we'll just intercept the
-        // query of the difficulty setting that controls whether destroyed parts are salvagable. (This
+        // query of the difficulty setting that controls whether destroyed parts are salvageable. (This
         // could conceivably stop working in some future PB version, but that's a safer mode of failure.)
         //
         // "Dear Harmony, please call into this GiveSalvageChanceForDestroyedPart class whenever DifficultyUtility.GetFlag() runs"
@@ -130,9 +130,9 @@ namespace ModExtensions
                 if(key == "combat_salvage_allows_destroyed")
                 {
                     float roll = UnityEngine.Random.Range(0f, 1f);
-                    float chance = MyModConfigManager.Config.salvagable_destroyed_part_success_chance;
+                    float chance = MyModConfigManager.Config.salvageable_destroyed_part_success_chance;
                     __result = (roll < chance);
-                    Debug.Log($"[EnhancedSalvageOfDestroyedParts] GiveSalvageChanceForDestroyedPart: roll={roll}, chance={chance}; salvagable={__result}");
+                    Debug.Log($"[EnhancedSalvageOfDestroyedParts] GiveSalvageChanceForDestroyedPart: roll={roll}, chance={chance}; salvageable={__result}");
                     return false; // "no need to call the original function; just use my __result"
                 }
                 return true; // "I don't care about this case; go ahead and run the original function like normal"
